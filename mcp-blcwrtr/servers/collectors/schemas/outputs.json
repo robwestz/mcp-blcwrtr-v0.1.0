@@ -1,0 +1,266 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "serpSnapshot": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "intents": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["informational", "commercial", "local", "navigational", "transactional"]
+          }
+        },
+        "lsi_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 6
+        },
+        "top_urls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "title": {
+                "type": "string"
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "domain": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
+            },
+            "required": ["url", "title", "position", "domain"]
+          }
+        },
+        "features": {
+          "type": "object",
+          "properties": {
+            "featured_snippet": {
+              "type": "boolean"
+            },
+            "knowledge_panel": {
+              "type": "boolean"
+            },
+            "local_pack": {
+              "type": "boolean"
+            },
+            "shopping_results": {
+              "type": "boolean"
+            }
+          }
+        },
+        "cached_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ttl": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["query", "locale", "intents", "lsi_terms", "top_urls"]
+    },
+    "mediaSignals": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "news": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "source": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "snippet": {
+                "type": "string"
+              },
+              "relevance_score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": ["title", "url", "source", "published_at"]
+          }
+        },
+        "video": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "channel": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "views": {
+                "type": "integer"
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["title", "url", "channel"]
+          }
+        },
+        "podcasts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "episode": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "show": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["title", "url", "show"]
+          }
+        },
+        "total_signals": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["topic", "news", "video", "podcasts", "total_signals"]
+    },
+    "ahrefsMetrics": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string"
+        },
+        "dr": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "ur": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "backlinks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "referring_domains": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "organic_traffic": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["target"]
+    },
+    "semrushMetrics": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string"
+        },
+        "authority_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "organic_traffic": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "keywords": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backlinks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "domain": {
+                "type": "string"
+              },
+              "competition_level": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["target"]
+    }
+  }
+}

@@ -1,0 +1,258 @@
+# Trust Registry Example
+# Exempel på trust-källor kategoriserade efter nivå och region
+
+trust_sources:
+  # Tier 1 - Högsta trovärdighet (myndigheter, officiella källor)
+  T1:
+    - domain: riksarkivet.se
+      region: SE
+      pattern: government
+      competitor: false
+      notes: "Nationella arkivet - högsta auktoritet för historiska dokument"
+    
+    - domain: kb.se
+      region: SE
+      pattern: government
+      competitor: false
+      notes: "Kungliga biblioteket - nationalbibliothek"
+    
+    - domain: scb.se
+      region: SE
+      pattern: government
+      competitor: false
+      notes: "Statistiska centralbyrån - officiell statistik"
+    
+    - domain: skatteverket.se
+      region: SE
+      pattern: government
+      competitor: false
+      notes: "Skattemyndigheten - folkbokföring och historiska register"
+    
+    - domain: lantmateriet.se
+      region: SE
+      pattern: government  
+      competitor: false
+      notes: "Fastighets- och kartregister"
+    
+    - domain: regeringen.se
+      region: SE
+      pattern: government
+      competitor: false
+      notes: "Sveriges regering - policy och lagstiftning"
+
+  # Tier 2 - Hög trovärdighet (etablerade medier, universitet)
+  T2:
+    - domain: wikipedia.org
+      region: GLOBAL
+      pattern: encyclopedia
+      competitor: false
+      notes: "Världens största uppslagsverk"
+    
+    - domain: dn.se
+      region: SE
+      pattern: news
+      competitor: false
+      notes: "Dagens Nyheter - ledande dagstidning"
+    
+    - domain: svt.se
+      region: SE
+      pattern: news
+      competitor: false
+      notes: "Sveriges Television - public service"
+    
+    - domain: sr.se
+      region: SE
+      pattern: news
+      competitor: false
+      notes: "Sveriges Radio - public service"
+    
+    - domain: svd.se
+      region: SE
+      pattern: news
+      competitor: false
+      notes: "Svenska Dagbladet - kvalitetstidning"
+    
+    - domain: uu.se
+      region: SE
+      pattern: academic
+      competitor: false
+      notes: "Uppsala universitet"
+    
+    - domain: lu.se
+      region: SE
+      pattern: academic
+      competitor: false
+      notes: "Lunds universitet"
+    
+    - domain: ki.se
+      region: SE
+      pattern: academic
+      competitor: false
+      notes: "Karolinska Institutet"
+
+  # Tier 3 - Medel trovärdighet (branschorganisationer, större sajter)
+  T3:
+    - domain: aftonbladet.se
+      region: SE
+      pattern: tabloid
+      competitor: false
+      notes: "Kvällstidning - kräver källkritik"
+    
+    - domain: expressen.se
+      region: SE
+      pattern: tabloid
+      competitor: false
+      notes: "Kvällstidning - kräver källkritik"
+    
+    - domain: genealogi.se
+      region: SE
+      pattern: niche
+      competitor: false
+      notes: "Sveriges Släktforskarförbund"
+    
+    - domain: slakthistoria.se
+      region: SE
+      pattern: niche
+      competitor: false
+      notes: "Släktforskningssajt"
+    
+    - domain: rotter.se
+      region: SE
+      pattern: niche
+      competitor: false
+      notes: "Genealogisk databas"
+    
+    - domain: familysearch.org
+      region: GLOBAL
+      pattern: niche
+      competitor: false
+      notes: "Internationell släktforskningsdatabas"
+
+  # Tier 4 - Låg trovärdighet (användargenererat, forum, bloggar)
+  T4:
+    - domain: flashback.org
+      region: SE
+      pattern: forum
+      competitor: false
+      notes: "Forum - kräver stark källkritik"
+    
+    - domain: reddit.com
+      region: GLOBAL
+      pattern: forum
+      competitor: false
+      notes: "Diskussionsforum - varierande kvalitet"
+    
+    - domain: familjeliv.se
+      region: SE
+      pattern: forum
+      competitor: false
+      notes: "Community - användargenererat innehåll"
+    
+    - domain: blogg.se
+      region: SE
+      pattern: blog
+      competitor: false
+      notes: "Bloggplattform - personliga åsikter"
+
+# Konkurrenter - Får ALDRIG länkas till
+competitors:
+  gambling:
+    - domain: casinoguide.se
+      region: SE
+      pattern: competitor
+      competitor: true
+      notes: "Direkt konkurrent - casino jämförelsesajt"
+    
+    - domain: bettingexpert.se
+      region: SE
+      pattern: competitor
+      competitor: true
+      notes: "Direkt konkurrent - betting tips"
+    
+    - domain: casinopro.se
+      region: SE
+      pattern: competitor
+      competitor: true
+      notes: "Direkt konkurrent - casino affiliate"
+    
+    - domain: spelblogg.se
+      region: SE
+      pattern: competitor
+      competitor: true
+      notes: "Konkurrent - casino blogg"
+
+  genealogy:
+    - domain: ancestry.com
+      region: GLOBAL
+      pattern: competitor
+      competitor: true
+      notes: "Stor internationell konkurrent om kund är i släktforskning"
+    
+    - domain: myheritage.se
+      region: SE
+      pattern: competitor
+      competitor: true
+      notes: "Konkurrent inom släktforskning"
+
+# Branschspecifika trust-källor
+industry_specific:
+  gambling_compliance:
+    - domain: spelinspektionen.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Spelmyndigheten - reglering och licenser"
+    
+    - domain: stodlinjen.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Hjälp vid spelproblem"
+    
+    - domain: spelpaus.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Nationellt självavstängningsregister"
+
+  finance_compliance:
+    - domain: fi.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Finansinspektionen"
+    
+    - domain: konsumentverket.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Konsumentskydd och rådgivning"
+
+  health_compliance:
+    - domain: socialstyrelsen.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Hälso- och sjukvård"
+    
+    - domain: lakemedelsverket.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Läkemedelsmyndigheten"
+    
+    - domain: 1177.se
+      region: SE
+      pattern: government
+      level: T1
+      notes: "Vårdguiden - medicinsk information"
+
+# Användningsregler
+usage_rules:
+  - "T1 källor föredras alltid när de är relevanta"
+  - "T2 källor är utmärkta för allmän information"
+  - "T3 källor kräver rationale om varför de används"
+  - "T4 källor bör undvikas om inte specifikt relevanta"
+  - "Konkurrenter får ALDRIG länkas till"
+  - "PLATSFÖRSLAG betyder att välja lämplig källa från relevant kategori"
+  - "Branschspecifika källor prioriteras i reglerade branscher"

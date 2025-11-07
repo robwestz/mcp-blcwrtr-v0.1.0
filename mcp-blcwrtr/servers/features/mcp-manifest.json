@@ -1,0 +1,27 @@
+{
+  "name": "features",
+  "version": "0.1.0",
+  "description": "Feature builders for entity graphs and anchor portfolio analysis",
+  "author": "MCP BacklinkContent Team",
+  "license": "MIT",
+  "tools": {
+    "features.entity_graph": {
+      "description": "Build entity graph from seed terms",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/buildEntityGraph"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/entityGraph"
+      }
+    },
+    "features.anchor_portfolio.recalc": {
+      "description": "Recalculate anchor portfolio mix and risk",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/recalcAnchorPortfolio"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/portfolioRecalc"
+      }
+    }
+  }
+}

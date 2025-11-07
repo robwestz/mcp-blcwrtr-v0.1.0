@@ -1,0 +1,27 @@
+{
+  "name": "preflight",
+  "version": "0.1.0",
+  "description": "Preflight planning and QC validation for backlink content",
+  "author": "MCP BacklinkContent Team",
+  "license": "MIT",
+  "tools": {
+    "preflight.build": {
+      "description": "Build preflight matrix and writer prompt from order",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/buildPreflight"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/preflightResult"
+      }
+    },
+    "qc.validate": {
+      "description": "Validate article against QC thresholds",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/validateQC"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/validationResult"
+      }
+    }
+  }
+}

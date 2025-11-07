@@ -1,0 +1,189 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "entityGraph": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["seed", "primary", "secondary", "related"]
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "category": {
+                    "type": "string"
+                  },
+                  "relevance": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "required": ["id", "label", "type", "weight"]
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "type": {
+                "type": "string",
+                "enum": ["semantic", "hierarchical", "associative", "causal"]
+              }
+            },
+            "required": ["source", "target", "weight", "type"]
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "seed_terms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "node_count": {
+              "type": "integer"
+            },
+            "edge_count": {
+              "type": "integer"
+            },
+            "density": {
+              "type": "number"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      },
+      "required": ["nodes", "edges", "metadata"]
+    },
+    "portfolioRecalc": {
+      "type": "object",
+      "properties": {
+        "target_domain": {
+          "type": "string"
+        },
+        "old_mix": {
+          "type": "object",
+          "properties": {
+            "exact": {
+              "type": "integer"
+            },
+            "partial": {
+              "type": "integer"
+            },
+            "brand": {
+              "type": "integer"
+            },
+            "generic": {
+              "type": "integer"
+            }
+          }
+        },
+        "new_mix": {
+          "type": "object",
+          "properties": {
+            "exact": {
+              "type": "integer"
+            },
+            "partial": {
+              "type": "integer"
+            },
+            "brand": {
+              "type": "integer"
+            },
+            "generic": {
+              "type": "integer"
+            }
+          }
+        },
+        "old_risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "new_risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "delta": {
+          "type": "object",
+          "properties": {
+            "risk_change": {
+              "type": "number"
+            },
+            "risk_direction": {
+              "type": "string",
+              "enum": ["improved", "worsened", "unchanged"]
+            },
+            "mix_changes": {
+              "type": "object"
+            }
+          }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": ["increase", "decrease", "maintain", "diversify"]
+              },
+              "anchor_type": {
+                "type": "string",
+                "enum": ["exact", "partial", "brand", "generic"]
+              },
+              "rationale": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["high", "medium", "low"]
+              }
+            }
+          }
+        }
+      },
+      "required": ["target_domain", "new_mix", "new_risk", "risk_level", "delta"]
+    }
+  }
+}

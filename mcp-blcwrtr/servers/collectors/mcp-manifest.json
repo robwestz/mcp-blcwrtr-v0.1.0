@@ -1,0 +1,47 @@
+{
+  "name": "collectors",
+  "version": "0.1.0",
+  "description": "Data collectors for SERP, media signals and SEO metrics",
+  "author": "MCP BacklinkContent Team",
+  "license": "MIT",
+  "tools": {
+    "serp.get_snapshot": {
+      "description": "Get SERP analysis with intents and LSI terms",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/getSerpSnapshot"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/serpSnapshot"
+      }
+    },
+    "media.signals": {
+      "description": "Get news, video and podcast signals for topic",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/getMediaSignals"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/mediaSignals"
+      }
+    },
+    "ahrefs.metrics": {
+      "description": "[Optional] Get Ahrefs metrics for domain or URL",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/getAhrefsMetrics"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/ahrefsMetrics"
+      },
+      "optional": true
+    },
+    "semrush.metrics": {
+      "description": "[Optional] Get Semrush metrics for domain or URL",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/getSemrushMetrics"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/semrushMetrics"
+      },
+      "optional": true
+    }
+  }
+}

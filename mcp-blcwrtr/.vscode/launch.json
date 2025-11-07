@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Debug Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "env": {
+        "DATABASE_URL": "postgresql://analysis:analysis@localhost:5432/analysisdb",
+        "LOG_LEVEL": "DEBUG"
+      }
+    },
+    {
+      "name": "Python: Debug MCP Server",
+      "type": "python",
+      "request": "launch",
+      "module": "src.server",
+      "cwd": "${workspaceFolder}/servers/${input:serverName}",
+      "console": "integratedTerminal",
+      "env": {
+        "DATABASE_URL": "postgresql://analysis:analysis@localhost:5432/analysisdb",
+        "LOG_LEVEL": "DEBUG"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "serverName",
+      "type": "pickString",
+      "description": "Välj server att debugga",
+      "options": ["analysisdb", "collectors", "features", "preflight"]
+    }
+  ]
+}

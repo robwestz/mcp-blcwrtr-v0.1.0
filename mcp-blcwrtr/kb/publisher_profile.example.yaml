@@ -1,0 +1,211 @@
+# Publisher Profile Example
+# Exempel på publicistprofiler för olika domäner
+
+publisher_profiles:
+  
+  # Exempel 1: Släktforskningssajt
+  genline.se:
+    voice:
+      tone: conversational
+      perspective: third_person
+      style_markers:
+        - "berättande stil"
+        - "historiskt perspektiv"
+        - "personliga anekdoter"
+        - "källkritisk approach"
+        - "pedagogisk förklaring"
+    
+    lix_range: easy  # 25-35 (lättläst för bred publik)
+    
+    policy:
+      nofollow: false
+      sponsored: true  # Markerar sponsrade länkar
+      ugc: false
+      restrictions:
+        - "inga politiska ämnen"
+        - "undvik kontroversiella historiska tolkningar"
+        - "respektera personuppgifter och GDPR"
+    
+    examples:
+      - url: "https://genline.se/artikel/borja-med-slaktforskning"
+        title: "Så börjar du med släktforskning - komplett guide"
+        excerpt: "Att börja forska i sin släkt kan kännas överväldigande. Var ska man börja? Vilka källor är pålitliga? I denna guide går vi igenom allt du behöver veta..."
+      
+      - url: "https://genline.se/artikel/kyrkobocker-kallkritik"
+        title: "Kyrkoböcker och källkritik - undvik de vanligaste fällorna"
+        excerpt: "Kyrkoböckerna är en guldgruva för släktforskare, men de innehåller också många fallgropar. Präster gjorde fel, namn stavades olika..."
+
+  # Exempel 2: Affärstidning
+  affarsvarlden.se:
+    voice:
+      tone: professional
+      perspective: third_person
+      style_markers:
+        - "analytisk"
+        - "faktabaserad"
+        - "objektiv rapportering"
+        - "ekonomisk terminologi"
+        - "kortfattad och koncis"
+    
+    lix_range: medium  # 35-45 (normalsvår, utbildad publik)
+    
+    policy:
+      nofollow: true  # Följer inte externa länkar
+      sponsored: true
+      ugc: false
+      restrictions:
+        - "ingen investeringsrådgivning"
+        - "alltid ange källor för siffror"
+        - "undvik spekulationer"
+    
+    examples:
+      - url: "https://affarsvarlden.se/artikel/techbolagen-rapporterar"
+        title: "Techbolagen överraskar - resultaten över förväntan"
+        excerpt: "De svenska techbolagens kvartalsrapporter visar på en starkare utveckling än analytikerna förutspått. Särskilt inom AI-segmentet..."
+
+  # Exempel 3: Livsstilsblogg
+  lifestylebyanna.se:
+    voice:
+      tone: casual
+      perspective: first_person
+      style_markers:
+        - "personlig och varm"
+        - "entusiastisk"
+        - "inkluderande"
+        - "vardagsnära"
+        - "positiv grundton"
+        - "använder emoji sparsamt"
+    
+    lix_range: very_easy  # <25 (mycket lättläst)
+    
+    policy:
+      nofollow: false
+      sponsored: true
+      ugc: true  # Tillåter kommentarer
+      restrictions:
+        - "familjevänligt innehåll"
+        - "ingen alkohol eller tobak"
+        - "body positive approach"
+    
+    examples:
+      - url: "https://lifestylebyanna.se/vardagsguld-med-barnen"
+        title: "5 enkla sätt att hitta vardagsguld med barnen 💛"
+        excerpt: "Hej fina ni! Idag tänkte jag dela med mig av mina bästa tips för att hitta de där små guldkornen i vardagen tillsammans med barnen..."
+
+  # Exempel 4: Teknisk dokumentation
+  devdocs.se:
+    voice:
+      tone: formal
+      perspective: third_person
+      style_markers:
+        - "tekniskt precis"
+        - "strukturerad"
+        - "exempel-driven"
+        - "problemlösningsfokuserad"
+        - "kodexempel inkluderade"
+    
+    lix_range: hard  # 45-55 (svår, teknisk publik)
+    
+    policy:
+      nofollow: false
+      sponsored: false
+      ugc: false
+      restrictions:
+        - "endast verifierad kod"
+        - "säkerhetsbest practices"
+        - "versionspecifik information"
+    
+    examples:
+      - url: "https://devdocs.se/python-async-patterns"
+        title: "Async patterns i Python - när och hur"
+        excerpt: "Asynkron programmering i Python kan optimera I/O-bundna operationer avsevärt. Detta dokument beskriver vanliga mönster och anti-mönster..."
+
+  # Exempel 5: Lokalnyheter
+  skanenyheter.se:
+    voice:
+      tone: conversational
+      perspective: third_person
+      style_markers:
+        - "lokal förankring"
+        - "nyhetsrapportering"
+        - "intervjubaserad"
+        - "samhällsfokus"
+        - "tillgänglig stil"
+    
+    lix_range: easy  # 25-35
+    
+    policy:
+      nofollow: false
+      sponsored: true
+      ugc: true  # Kommentarer tillåtna
+      restrictions:
+        - "objektiv nyhetsrapportering"
+        - "lokalt fokus prioriterat"
+        - "balanserad politisk bevakning"
+    
+    examples:
+      - url: "https://skanenyheter.se/nya-simhallen-invigs"
+        title: "Nya simhallen invigs - 'Ett lyft för hela kommunen'"
+        excerpt: "Efter tre års byggande står äntligen kommunens nya simhall klar. Vi har pratat med projektledaren och några förväntansfulla besökare..."
+
+# Användningsinstruktioner
+usage_instructions:
+  - "Matcha alltid innehållets ton och stil med publicistens profil"
+  - "Respektera LIX-range för målgruppens läsbarhet"
+  - "Följ alla policy-restriktioner strikt"
+  - "Använd style markers som guide för skrivstil"
+  - "Studera examples för att förstå publicistens röst"
+
+# LIX-förklaring
+lix_explanation:
+  very_easy: "LIX <25 - Mycket lättläst (barnböcker, enkel info)"
+  easy: "LIX 25-35 - Lättläst (dagstidningar, populärvetenskap)"
+  medium: "LIX 35-45 - Normalsvår (facklitteratur, affärspress)"
+  hard: "LIX 45-55 - Svår (akademisk text, teknisk dokumentation)"
+  very_hard: "LIX >55 - Mycket svår (juridisk text, forskningsrapporter)"
+
+# Tonalitetsguide
+tone_guide:
+  formal:
+    - "Använd fullständiga meningar"
+    - "Undvik förkortningar"
+    - "Objektiv och saklig"
+    - "Akademisk eller professionell stil"
+  
+  professional:
+    - "Balanserad och informativ"
+    - "Branschterminologi OK"
+    - "Kortfattad och effektiv"
+    - "Affärsmässig ton"
+  
+  conversational:
+    - "Som ett samtal med läsaren"
+    - "Naturligt språkflöde"
+    - "Kan använda 'vi' och 'du'"
+    - "Vänlig men informativ"
+  
+  casual:
+    - "Avslappnad och personlig"
+    - "Vardagsspråk OK"
+    - "Förkortningar tillåtna"
+    - "Emoji/utrop sparsamt OK"
+
+# Perspektivguide
+perspective_guide:
+  first_person:
+    - "Jag/vi berättar"
+    - "Personliga erfarenheter"
+    - "Direkt relation till läsaren"
+    - "Passar bloggar och personliga sajter"
+  
+  third_person:
+    - "Objektiv berättarröst"
+    - "Professionell distans"
+    - "Fakta och information i fokus"
+    - "Standard för nyheter och företag"
+  
+  mixed:
+    - "Växlar mellan perspektiv"
+    - "Third person för fakta"
+    - "First person för exempel"
+    - "Kräver fingertoppskänsla"

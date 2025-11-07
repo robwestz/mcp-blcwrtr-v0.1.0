@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "servers": {
+    "analysisdb": {
+      "command": "python",
+      "args": ["servers/analysisdb/src/server.py"],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL}",
+        "LOG_LEVEL": "${LOG_LEVEL:-INFO}"
+      },
+      "description": "Database adapter for publisher profiles, anchor portfolios and event logging"
+    },
+    "collectors": {
+      "command": "python",
+      "args": ["servers/collectors/src/server.py"],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL}",
+        "SERP_API_KEY": "${SERP_API_KEY}",
+        "AHREFS_KEY": "${AHREFS_KEY}",
+        "SEMRUSH_KEY": "${SEMRUSH_KEY}",
+        "USE_MOCK_COLLECTORS": "${USE_MOCK_COLLECTORS:-true}",
+        "LOG_LEVEL": "${LOG_LEVEL:-INFO}"
+      },
+      "description": "Data collectors for SERP, media signals and SEO metrics"
+    },
+    "features": {
+      "command": "python",
+      "args": ["servers/features/src/server.py"],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL}",
+        "LOG_LEVEL": "${LOG_LEVEL:-INFO}"
+      },
+      "description": "Feature builders for entity graphs and anchor portfolio analysis"
+    },
+    "preflight": {
+      "command": "python",
+      "args": ["servers/preflight/src/server.py"],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL}",
+        "LOG_LEVEL": "${LOG_LEVEL:-INFO}"
+      },
+      "description": "Preflight planning and QC validation for backlink content"
+    }
+  },
+  "tools": [
+    {
+      "server": "analysisdb",
+      "name": "db.get_publisher_profile",
+      "description": "Get publisher voice profile, LIX range and policies"
+    },
+    {
+      "server": "analysisdb",
+      "name": "db.get_anchor_portfolio",
+      "description": "Get anchor text distribution and risk assessment for target URL"
+    },
+    {
+      "server": "analysisdb",
+      "name": "db.get_pages",
+      "description": "Get pages for customer or general inventory"
+    },
+    {
+      "server": "analysisdb",
+      "name": "db.log_event",
+      "description": "Log audit events for tracking and compliance"
+    },
+    {
+      "server": "collectors",
+      "name": "serp.get_snapshot",
+      "description": "Get SERP analysis with intents and LSI terms"
+    },
+    {
+      "server": "collectors",
+      "name": "media.signals",
+      "description": "Get news, video and podcast signals for topic"
+    },
+    {
+      "server": "features",
+      "name": "features.entity_graph",
+      "description": "Build entity graph from seed terms"
+    },
+    {
+      "server": "features",
+      "name": "features.anchor_portfolio.recalc",
+      "description": "Recalculate anchor portfolio mix and risk"
+    },
+    {
+      "server": "preflight",
+      "name": "preflight.build",
+      "description": "Build preflight matrix and writer prompt from order"
+    },
+    {
+      "server": "preflight",
+      "name": "qc.validate",
+      "description": "Validate article against QC thresholds"
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mcp-blcwrtr/schemas/preflight_matrix.schema.json",
+  "title": "Preflight Matrix",
+  "description": "Schema for validating preflight matrix structure",
+  "type": "object",
+  "properties": {
+    "order_ref": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "publication_domain": {
+      "type": "string",
+      "format": "hostname"
+    },
+    "customer_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "query_or_cluster": {
+      "type": "string",
+      "minLength": 3
+    },
+    "intents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["informational", "commercial", "local", "compare"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "target_entities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2
+      },
+      "minItems": 1
+    },
+    "publication_entities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2
+      },
+      "minItems": 1
+    },
+    "candidate_midpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 3
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 10
+          }
+        },
+        "required": ["label", "score", "rationale"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "chosen_midpoint": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 3
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 10
+        }
+      },
+      "required": ["label", "rationale"],
+      "additionalProperties": false
+    },
+    "target_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "anchor_plan": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["exact", "partial", "brand", "generic"]
+        },
+        "primary": {
+          "type": "string",
+          "minLength": 2
+        },
+        "backup": {
+          "type": "string",
+          "minLength": 2
+        },
+        "placement": {
+          "type": "object",
+          "properties": {
+            "section": {
+              "type": "string",
+              "enum": ["mittpunkt", "introduction", "conclusion", "body"]
+            },
+            "paragraph": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "seeded": {
+              "type": "boolean"
+            }
+          },
+          "required": ["section", "paragraph", "seeded"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["type", "primary", "backup", "placement"],
+      "additionalProperties": false
+    },
+    "lsi_near_window": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "minimum": 6,
+              "maximum": 6
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 10
+            },
+            "radius_sentences": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 2
+            },
+            "max_repeat": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 2
+            }
+          },
+          "required": ["min", "max", "radius_sentences", "max_repeat"],
+          "additionalProperties": false
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2
+          },
+          "minItems": 6,
+          "maxItems": 15,
+          "uniqueItems": true
+        }
+      },
+      "required": ["policy", "terms"],
+      "additionalProperties": false
+    },
+    "trust": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["T1", "T2", "T3", "T4"]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 10
+          }
+        },
+        "required": ["domain", "level", "rationale"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "guards": {
+      "type": "object",
+      "properties": {
+        "no_anchor_in_headers": {
+          "type": "boolean",
+          "const": true
+        },
+        "competitor_block": {
+          "type": "boolean",
+          "const": true
+        },
+        "compliance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["gambling", "finance", "health", "legal", "crypto"]
+          }
+        }
+      },
+      "required": ["no_anchor_in_headers", "competitor_block", "compliance"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "order_ref",
+    "publication_domain",
+    "customer_id",
+    "query_or_cluster",
+    "intents",
+    "target_entities",
+    "publication_entities",
+    "candidate_midpoints",
+    "chosen_midpoint",
+    "target_url",
+    "anchor_plan",
+    "lsi_near_window",
+    "trust",
+    "guards"
+  ],
+  "additionalProperties": false
+}

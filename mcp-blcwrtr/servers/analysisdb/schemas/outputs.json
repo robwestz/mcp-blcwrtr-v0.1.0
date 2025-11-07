@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "publisherProfile": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "voice": {
+          "type": "object",
+          "properties": {
+            "tone": {
+              "type": "string",
+              "enum": ["formal", "conversational", "academic", "casual", "professional"]
+            },
+            "perspective": {
+              "type": "string",
+              "enum": ["first_person", "third_person", "mixed"]
+            },
+            "style_markers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "lix_range": {
+          "type": "string",
+          "enum": ["very_easy", "easy", "medium", "hard", "very_hard"]
+        },
+        "policy": {
+          "type": "object",
+          "properties": {
+            "nofollow": {
+              "type": "boolean"
+            },
+            "sponsored": {
+              "type": "boolean"
+            },
+            "ugc": {
+              "type": "boolean"
+            },
+            "restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "excerpt": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": ["domain", "voice", "lix_range", "policy", "examples"]
+    },
+    "anchorPortfolio": {
+      "type": "object",
+      "properties": {
+        "target_domain": {
+          "type": "string"
+        },
+        "exact": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "partial": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "brand": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "generic": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["target_domain", "exact", "partial", "brand", "generic", "total", "risk", "risk_level"]
+    },
+    "pagesList": {
+      "type": "object",
+      "properties": {
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["landing", "article", "category", "product"]
+              },
+              "customer_id": {
+                "type": ["string", "null"],
+                "format": "uuid"
+              },
+              "metadata": {
+                "type": "object"
+              }
+            },
+            "required": ["id", "url", "type"]
+          }
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["pages", "total"]
+    },
+    "logResult": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "event_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ok", "event_id", "timestamp"]
+    }
+  }
+}

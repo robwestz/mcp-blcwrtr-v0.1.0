@@ -1,0 +1,80 @@
+# QC Thresholds Configuration
+# Definierar kvalitetskrav för backlink-content
+
+thresholds:
+  # LSI-krav
+  lsi:
+    min_count_near_window: 6
+    max_count_near_window: 10
+    window_radius_sentences: 2
+    max_repeat_per_lemma: 2
+    required_diversity:
+      - "process"
+      - "mått"
+      - "felkällor"
+  
+  # Trust-krav
+  trust:
+    min_count: 1
+    preferred_levels: ["T1", "T2"]
+    acceptable_levels: ["T3", "T4"]  # kräver rationale
+    require_triangulation: true
+  
+  # Ankar-risk
+  anchor:
+    allowed_risk_levels: ["low", "medium"]
+    blocked_risk_levels: ["high"]
+    placement_rules:
+      allowed_sections: ["mittpunkt"]
+      allowed_paragraphs: [1, 2, 3]
+      never_in_headers: true
+      seeded_jitter: true
+  
+  # Compliance
+  compliance:
+    regulated_industries:
+      gambling:
+        requires_disclaimer: true
+        disclaimer_type: "gambling_responsible"
+      finance:
+        requires_disclaimer: true
+        disclaimer_type: "financial_advice"
+      health:
+        requires_disclaimer: true
+        disclaimer_type: "medical_advice"
+      legal:
+        requires_disclaimer: true
+        disclaimer_type: "legal_advice"
+      crypto:
+        requires_disclaimer: true
+        disclaimer_type: "crypto_risk"
+  
+  # QC-poäng
+  scoring:
+    approved_min: 85
+    light_edits_min: 70
+    weights:
+      preflight: 0.25
+      draft: 0.15
+      anchor: 0.20
+      trust: 0.15
+      lsi: 0.15
+      fit: 0.05
+      compliance: 0.05
+
+# AutoFix-policy
+autofix:
+  max_iterations: 1  # AUTO_FIX_ONCE
+  allowed_actions:
+    - "move_link_within_section"
+    - "change_anchor_type"
+    - "add_or_replace_trust"
+    - "inject_lsi_terms"
+    - "add_disclaimer"
+  needs_signoff:
+    - "change_title"
+    - "switch_main_topic"
+    - "remove_sections"
+  never_allowed:
+    - "fabricate_data"
+    - "link_to_competitors"

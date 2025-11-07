@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "buildEntityGraph": {
+      "type": "object",
+      "properties": {
+        "seed_terms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "description": "Seed terms to build entity graph from"
+        },
+        "depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "default": 2,
+          "description": "Depth of entity expansion"
+        },
+        "max_nodes": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 100,
+          "default": 50,
+          "description": "Maximum number of nodes in graph"
+        },
+        "language": {
+          "type": "string",
+          "default": "sv",
+          "enum": ["sv", "en"],
+          "description": "Language for entity expansion"
+        }
+      },
+      "required": ["seed_terms"],
+      "additionalProperties": false
+    },
+    "recalcAnchorPortfolio": {
+      "type": "object",
+      "properties": {
+        "target_domain": {
+          "type": "string",
+          "format": "hostname",
+          "description": "Target domain to recalculate portfolio for"
+        },
+        "new_anchor": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "type": "string",
+              "enum": ["exact", "partial", "brand", "generic"]
+            }
+          },
+          "description": "New anchor to add to portfolio (optional)"
+        },
+        "removed_anchor": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "type": "string",
+              "enum": ["exact", "partial", "brand", "generic"]
+            }
+          },
+          "description": "Anchor to remove from portfolio (optional)"
+        },
+        "save_to_db": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to save updated portfolio to database"
+        }
+      },
+      "required": ["target_domain"],
+      "additionalProperties": false
+    }
+  }
+}

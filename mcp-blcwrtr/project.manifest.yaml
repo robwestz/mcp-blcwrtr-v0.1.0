@@ -1,0 +1,41 @@
+project:
+  name: "mcp-blcwrtr"
+  description: "MCP-svit för triadstyrd backlink-produktion (publication_domain × target_url × anchor_text)"
+  license: "MIT"
+  seed: "deterministisk-backlink-v1"
+
+infra:
+  docker: true
+  database:
+    type: postgres
+    db_name: "analysisdb"
+    user: "analysis"
+    port: 5432
+  vector: none
+  cache: none
+
+llm:
+  mcp: true
+  tools:
+    - server: "analysisdb"
+      endpoints: ["db.get_publisher_profile", "db.get_anchor_portfolio", "db.get_pages", "db.log_event"]
+    - server: "collectors"
+      endpoints: ["serp.get_snapshot", "media.signals", "ahrefs.metrics?", "semrush.metrics?"]
+    - server: "features"
+      endpoints: ["features.entity_graph", "features.anchor_portfolio.recalc"]
+    - server: "preflight"
+      endpoints: ["preflight.build", "qc.validate"]
+
+security:
+  pii: "basic"
+  policy: ["allowlist"]
+  secrets: ["DATABASE_URL", "SERP_API_KEY", "AHREFS_KEY", "SEMRUSH_KEY"]
+
+quality:
+  qc_thresholds:
+    - "lsi_count>=6"
+    - "trust>=1"
+    - "anchor_risk in {low,medium}"
+
+outputs:
+  scaffold: [docker, env, code, manifests, schemas, tests, docs]

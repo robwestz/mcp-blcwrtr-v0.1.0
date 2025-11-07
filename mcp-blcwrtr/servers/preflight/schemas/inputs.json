@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "buildPreflight": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "object",
+          "properties": {
+            "order_ref": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "customer_id": {
+              "type": "string"
+            },
+            "publication_domain": {
+              "type": "string",
+              "format": "hostname"
+            },
+            "target_url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "anchor_text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "topic": {
+              "type": "string",
+              "minLength": 10
+            },
+            "constraints": {
+              "type": "object",
+              "properties": {
+                "word_count": {
+                  "type": "integer",
+                  "minimum": 300,
+                  "maximum": 3000,
+                  "default": 800
+                },
+                "tone": {
+                  "type": "string",
+                  "enum": ["informativ", "konversation", "professionell", "akademisk"],
+                  "default": "informativ"
+                },
+                "compliance": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["gambling", "finance", "health", "legal", "crypto"]
+                  }
+                }
+              }
+            }
+          },
+          "required": ["order_ref", "customer_id", "publication_domain", "target_url", "anchor_text", "topic"]
+        }
+      },
+      "required": ["order"],
+      "additionalProperties": false
+    },
+    "validateQC": {
+      "type": "object",
+      "properties": {
+        "article_text": {
+          "type": "string",
+          "minLength": 100,
+          "description": "Full article text to validate"
+        },
+        "preflight_matrix": {
+          "type": "object",
+          "description": "Optional preflight matrix for validation context"
+        },
+        "auto_fix": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to attempt automatic fixes"
+        },
+        "strict_mode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Apply stricter validation rules"
+        }
+      },
+      "required": ["article_text"],
+      "additionalProperties": false
+    }
+  }
+}

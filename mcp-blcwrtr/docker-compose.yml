@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mcp-blcwrtr-postgres
+    environment:
+      POSTGRES_USER: analysis
+      POSTGRES_PASSWORD: analysis
+      POSTGRES_DB: analysisdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./infra/db/init:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analysis -d analysisdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mcp-network
+
+  analysisdb:
+    build: ./servers/analysisdb
+    container_name: mcp-analysisdb
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://analysis:analysis@postgres:5432/analysisdb}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./servers/analysisdb:/app
+    networks:
+      - mcp-network
+    command: python src/server.py
+
+  collectors:
+    build: ./servers/collectors
+    container_name: mcp-collectors
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://analysis:analysis@postgres:5432/analysisdb}
+      SERP_API_KEY: ${SERP_API_KEY}
+      AHREFS_KEY: ${AHREFS_KEY}
+      SEMRUSH_KEY: ${SEMRUSH_KEY}
+      USE_MOCK_COLLECTORS: ${USE_MOCK_COLLECTORS:-true}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./servers/collectors:/app
+    networks:
+      - mcp-network
+    command: python src/server.py
+
+  features:
+    build: ./servers/features
+    container_name: mcp-features
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://analysis:analysis@postgres:5432/analysisdb}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./servers/features:/app
+    networks:
+      - mcp-network
+    command: python src/server.py
+
+  preflight:
+    build: ./servers/preflight
+    container_name: mcp-preflight
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://analysis:analysis@postgres:5432/analysisdb}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./servers/preflight:/app
+    networks:
+      - mcp-network
+    command: python src/server.py
+
+volumes:
+  postgres_data:
+
+networks:
+  mcp-network:
+    driver: bridge

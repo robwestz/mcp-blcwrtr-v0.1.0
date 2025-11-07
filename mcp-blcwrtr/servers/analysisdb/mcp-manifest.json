@@ -1,0 +1,45 @@
+{
+  "name": "analysisdb",
+  "version": "0.1.0",
+  "description": "Database adapter for publisher profiles, anchor portfolios and event logging",
+  "author": "MCP BacklinkContent Team",
+  "license": "MIT",
+  "tools": {
+    "db.get_publisher_profile": {
+      "description": "Get publisher voice profile, LIX range and policies for a domain",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/getPublisherProfile"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/publisherProfile"
+      }
+    },
+    "db.get_anchor_portfolio": {
+      "description": "Get anchor text distribution and risk assessment for target URL",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/getAnchorPortfolio"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/anchorPortfolio"
+      }
+    },
+    "db.get_pages": {
+      "description": "Get pages for customer or general inventory",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/getPages"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/pagesList"
+      }
+    },
+    "db.log_event": {
+      "description": "Log audit events for tracking and compliance",
+      "inputSchema": {
+        "$ref": "schemas/inputs.json#/definitions/logEvent"
+      },
+      "outputSchema": {
+        "$ref": "schemas/outputs.json#/definitions/logResult"
+      }
+    }
+  }
+}

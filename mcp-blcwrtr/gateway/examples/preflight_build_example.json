@@ -1,0 +1,82 @@
+{
+  "tool": "preflight.build",
+  "server": "preflight",
+  "input": {
+    "order": {
+      "order_ref": "550e8400-e29b-41d4-a716-446655440000",
+      "customer_id": "cust_001",
+      "publication_domain": "genline.se",
+      "target_url": "https://happycasino.se/casino",
+      "anchor_text": "casino",
+      "topic": "Så undviker du falska ledtrådar i släktforskningen",
+      "constraints": {
+        "word_count": 800,
+        "tone": "informativ",
+        "compliance": ["gambling"]
+      }
+    }
+  },
+  "expected_output": {
+    "preflight_matrix": {
+      "order_ref": "550e8400-e29b-41d4-a716-446655440000",
+      "publication_domain": "genline.se",
+      "customer_id": "cust_001",
+      "query_or_cluster": "släktforskning misstag",
+      "intents": ["informational"],
+      "target_entities": ["casino", "spel", "underhållning"],
+      "publication_entities": ["släktforskning", "genealogi", "arkiv"],
+      "candidate_midpoints": [
+        {
+          "label": "pausunderhållning",
+          "score": 0.85,
+          "rationale": "Naturlig brygga mellan intensivt forskande och avkoppling"
+        }
+        
+      ],
+      "chosen_midpoint": {
+        "label": "pausunderhållning",
+        "rationale": "Bäst balanserad relevans mellan domänerna"
+      },
+      "target_url": "https://happycasino.se/casino",
+      "anchor_plan": {
+        "type": "partial",
+        "primary": "casino för avkoppling",
+        "backup": "underhållning online",
+        "placement": {
+          "section": "mittpunkt",
+          "paragraph": 2,
+          "seeded": true
+        }
+      },
+      "lsi_near_window": {
+        "policy": {
+          "min": 6,
+          "max": 10,
+          "radius_sentences": 2,
+          "max_repeat": 2
+        },
+        "terms": [
+          "forskning",
+          "källor",
+          "verifiering",
+          "pausaktivitet",
+          "digital",
+          "avkoppling"
+        ]
+      },
+      "trust": [
+        {
+          "domain": "riksarkivet.se",
+          "level": "T1",
+          "rationale": "Officiell myndighet för arkivfrågor"
+        }
+      ],
+      "guards": {
+        "no_anchor_in_headers": true,
+        "competitor_block": true,
+        "compliance": ["gambling"]
+      }
+    },
+    "writer_prompt": "Din uppgift är att skriva en artikel...[templated content]"
+  }
+}

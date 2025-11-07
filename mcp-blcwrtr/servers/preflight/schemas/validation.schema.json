@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mcp-blcwrtr/schemas/validation.schema.json",
+  "title": "Validation Rules",
+  "description": "Schema defining QC validation rules and thresholds",
+  "type": "object",
+  "properties": {
+    "thresholds": {
+      "type": "object",
+      "properties": {
+        "approved_min": {
+          "type": "integer",
+          "minimum": 85,
+          "maximum": 85
+        },
+        "light_edits_min": {
+          "type": "integer",
+          "minimum": 70,
+          "maximum": 70
+        }
+      }
+    },
+    "weights": {
+      "type": "object",
+      "properties": {
+        "preflight": {
+          "type": "number",
+          "minimum": 0.25,
+          "maximum": 0.25
+        },
+        "draft": {
+          "type": "number",
+          "minimum": 0.15,
+          "maximum": 0.15
+        },
+        "anchor": {
+          "type": "number",
+          "minimum": 0.20,
+          "maximum": 0.20
+        },
+        "trust": {
+          "type": "number",
+          "minimum": 0.15,
+          "maximum": 0.15
+        },
+        "lsi": {
+          "type": "number",
+          "minimum": 0.15,
+          "maximum": 0.15
+        },
+        "fit": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 0.05
+        },
+        "compliance": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 0.05
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "lsi": {
+          "type": "object",
+          "properties": {
+            "min_count": {
+              "type": "integer",
+              "minimum": 6
+            },
+            "max_count": {
+              "type": "integer",
+              "maximum": 10
+            },
+            "window_radius": {
+              "type": "integer",
+              "const": 2
+            },
+            "max_repeat_per_lemma": {
+              "type": "integer",
+              "const": 2
+            }
+          }
+        },
+        "trust": {
+          "type": "object",
+          "properties": {
+            "min_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "preferred_levels": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["T1", "T2"]
+              }
+            }
+          }
+        },
+        "anchor": {
+          "type": "object",
+          "properties": {
+            "allowed_risk_levels": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["low", "medium"]
+              }
+            },
+            "placement": {
+              "type": "object",
+              "properties": {
+                "allowed_sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "allowed_paragraphs": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10
+                  }
+                },
+                "never_in_headers": {
+                  "type": "boolean",
+                  "const": true
+                }
+              }
+            }
+          }
+        },
+        "compliance": {
+          "type": "object",
+          "properties": {
+            "gambling": {
+              "type": "object",
+              "properties": {
+                "requires_disclaimer": {
+                  "type": "boolean",
+                  "const": true
+                },
+                "disclaimer_type": {
+                  "type": "string",
+                  "const": "gambling_responsible"
+                }
+              }
+            },
+            "finance": {
+              "type": "object",
+              "properties": {
+                "requires_disclaimer": {
+                  "type": "boolean",
+                  "const": true
+                },
+                "disclaimer_type": {
+                  "type": "string",
+                  "const": "financial_advice"
+                }
+              }
+            },
+            "health": {
+              "type": "object",
+              "properties": {
+                "requires_disclaimer": {
+                  "type": "boolean",
+                  "const": true
+                },
+                "disclaimer_type": {
+                  "type": "string",
+                  "const": "medical_advice"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "autofix": {
+      "type": "object",
+      "properties": {
+        "max_iterations": {
+          "type": "integer",
+          "const": 1
+        },
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "move_link_within_section",
+              "change_anchor_type",
+              "add_or_replace_trust",
+              "inject_lsi_terms",
+              "add_disclaimer"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

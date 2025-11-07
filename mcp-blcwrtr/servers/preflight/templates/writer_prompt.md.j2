@@ -1,0 +1,102 @@
+Du är en erfaren innehållsförfattare som specialiserar sig på {{ publication_domain }}. Din uppgift är att skriva en artikel om "{{ topic }}" som naturligt integrerar en länk till {{ target_url }} med ankartexten "{{ anchor_plan.primary }}".
+
+## ARTIKELKRAV
+
+**Ämne:** {{ topic }}
+**Publiceringsdomän:** {{ publication_domain }}
+**Målgrupp:** Besökare på {{ publication_domain }} som är intresserade av {{ query_or_cluster }}
+**Längd:** {{ word_count }} ord
+**Ton:** {{ tone }}
+
+## SÖKINTENTION & ENTITETER
+
+**Primär sökintention:** {{ intents|join(', ') }}
+**Publikationsdomän-entiteter:** {{ publication_entities|join(', ') }}
+**Måldomän-entiteter:** {{ target_entities|join(', ') }}
+
+## BRYGGA (MIDPOINT)
+
+Du ska använda konceptet "{{ chosen_midpoint.label }}" som en naturlig brygga mellan artikelns huvudämne och länken. 
+
+**Motivering:** {{ chosen_midpoint.rationale }}
+
+## LÄNKPLACERING
+
+**Ankartext:** {{ anchor_plan.primary }}
+**Backup-ankartext:** {{ anchor_plan.backup }}
+**Placering:** {{ anchor_plan.placement.section }}, paragraf {{ anchor_plan.placement.paragraph }}
+
+KRITISKT: Länken får ALDRIG placeras i en rubrik. Den ska integreras naturligt i löpande text.
+
+## LSI-KRAV (SEMANTISK RELEVANS)
+
+Följande termer MÅSTE finnas inom 2 meningar från länken (minst {{ lsi_near_window.policy.min }}, max {{ lsi_near_window.policy.max }}):
+
+{% for term in lsi_near_window.terms -%}
+- {{ term }}
+{% endfor %}
+
+OBS: Varje term får användas max {{ lsi_near_window.policy.max_repeat }} gånger. Variera med synonymer vid behov.
+
+## TRUST-SIGNALER
+
+Inkludera minst EN referens till följande källor för att stärka trovärdighet:
+
+{% for trust_source in trust -%}
+- {{ trust_source.domain }} ({{ trust_source.level }}): {{ trust_source.rationale }}
+{% endfor %}
+
+{% if 'PLATSFÖRSLAG' in trust|map(attribute='domain')|list %}
+OBS: "PLATSFÖRSLAG" betyder att du ska välja en lämplig källa av den angivna typen, inte använda texten "PLATSFÖRSLAG" direkt.
+{% endif %}
+
+## STRUKTUR
+
+1. **Inledning** - Fånga läsarens intresse med huvudämnet
+2. **Huvudinnehåll** - Utveckla ämnet med konkreta tips/information
+3. **{{ chosen_midpoint.label|title }}** - Introducera bryggkonceptet naturligt
+4. **Länkintegration** - Placera länken i kontext av bryggkonceptet
+5. **Fortsättning** - Återgå till huvudämnet
+6. **Avslutning** - Sammanfatta och ge värde
+
+## COMPLIANCE
+
+{% if compliance %}
+{% for compliance_type in compliance %}
+{% if compliance_type == 'gambling' %}
+**Spelansvar:** Inkludera en kort text om spelansvar efter länken:
+"Spela ansvarsfullt. Läs mer om spelansvar på spelpaus.se. 18+ årsgräns."
+{% elif compliance_type == 'finance' %}
+**Finansiell disclaimer:** Inkludera efter finansiella råd:
+"Detta är inte finansiell rådgivning. Konsultera alltid en kvalificerad rådgivare."
+{% elif compliance_type == 'health' %}
+**Medicinsk disclaimer:** Inkludera vid hälsoråd:
+"Denna information ersätter inte professionell medicinsk rådgivning."
+{% endif %}
+{% endfor %}
+{% endif %}
+
+## KVALITETSKONTROLL
+
+Innan du levererar, kontrollera att:
+- [ ] Länken är placerad i {{ anchor_plan.placement.section }}, paragraf {{ anchor_plan.placement.paragraph }}
+- [ ] Ankartexten är exakt "{{ anchor_plan.primary }}"
+- [ ] Minst {{ lsi_near_window.policy.min }} LSI-termer finns inom 2 meningar från länken
+- [ ] Minst 1 trust-källa är refererad
+- [ ] Artikeln flyter naturligt och ger genuint värde
+- [ ] Länken är INTE i en rubrik
+{% if compliance %}
+- [ ] Nödvändiga disclaimers är inkluderade
+{% endif %}
+
+## FORMAT
+
+Leverera artikeln i Markdown-format med tydliga rubriker (##). Använd [[LÄNK]] för att markera var länken ska placeras, till exempel:
+
+```
+När du behöver en paus från forskningen kan [[{{ anchor_plan.primary }}]] vara ett sätt att koppla av och ladda batterierna.
+```
+
+---
+
+Börja nu med att skriva artikeln enligt ovanstående specifikationer.

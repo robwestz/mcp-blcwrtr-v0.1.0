@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "getSerpSnapshot": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Search query to analyze"
+        },
+        "locale": {
+          "type": "string",
+          "default": "sv-SE",
+          "pattern": "^[a-z]{2}-[A-Z]{2}$",
+          "description": "Locale for search (e.g. sv-SE, en-US)"
+        },
+        "use_cache": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to use cached results if available"
+        }
+      },
+      "required": ["query"],
+      "additionalProperties": false
+    },
+    "getMediaSignals": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Topic to search for in media sources"
+        },
+        "since": {
+          "type": "string",
+          "format": "date",
+          "description": "Get signals since this date (ISO format)"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["news", "video", "podcasts"]
+          },
+          "default": ["news", "video", "podcasts"],
+          "description": "Media sources to include"
+        }
+      },
+      "required": ["topic"],
+      "additionalProperties": false
+    },
+    "getAhrefsMetrics": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string",
+          "description": "Domain or URL to analyze"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["dr", "ur", "backlinks", "referring_domains", "organic_traffic"]
+          },
+          "default": ["dr", "backlinks"],
+          "description": "Specific metrics to retrieve"
+        }
+      },
+      "required": ["target"],
+      "additionalProperties": false
+    },
+    "getSemrushMetrics": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string",
+          "description": "Domain or URL to analyze"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["authority_score", "organic_traffic", "keywords", "backlinks", "competitors"]
+          },
+          "default": ["authority_score", "organic_traffic"],
+          "description": "Specific metrics to retrieve"
+        }
+      },
+      "required": ["target"],
+      "additionalProperties": false
+    }
+  }
+}
